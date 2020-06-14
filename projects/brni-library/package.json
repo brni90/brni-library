@@ -2,7 +2,7 @@
   "name": "brni-library",
   "description": "Utility library",
   "license": "MIT",
-  "version": "0.0.6",
+  "version": "0.0.9",
   "peerDependencies": {
     "@angular/common": "9.1.9",
     "@angular/core": "9.1.9",
@@ -20,6 +20,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/brni90/brni-library.git"
+    "url": "https://github.com/brni90/brni-library/tree/master/projects/brni-library#readme"
   }
 }
