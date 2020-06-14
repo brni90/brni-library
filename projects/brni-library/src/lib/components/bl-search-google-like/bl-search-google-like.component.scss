@@ -1,0 +1,65 @@
+@import '../../scss/theme.scss'; 
+@import '../../scss/spinner.scss'; 
+
+
+//INPUT TEXT
+.myInputText {
+  border-radius: 5px;
+  border: 2px solid;
+  outline: 0;
+  padding-left: 5px;
+  border-color: $primaryColor;
+  font-size: $fontSize;
+}
+
+
+//MAIN CONTAINER 
+.myDropdown {
+  position: relative;
+  display: inline-block;
+}
+
+//DROPDOWN CONTENT
+.myDropdownContent {
+  display: block;
+  position: absolute;
+  min-width: 160px;
+  box-shadow: 0px 8px 14px 0px rgba(0,0,0,0.4);
+  z-index: 1;
+  list-style-type :none;
+  padding: 0px;
+  overflow: auto;
+}
+
+
+//DROPDOWN ITEM LI
+.myDropdownItemContent:hover{
+  background-color: $primaryColor;
+}
+
+//ITEM DROPDOWN SELECTABLE
+
+.itemDropdown{
+  text-decoration: none;
+  display: block;
+}
+
+.itemSelectable{
+    cursor: pointer;
+    padding: 5px;
+    font-size: $fontSize;
+}
+
+.itemNoSelectable{
+    cursor: default;
+    padding: 5px;
+    font-size: $fontSize;
+}
+
+  //LOADER CONTAINER
+  .loaderContainer {
+    padding: 15%;
+  }
+
+  
+  

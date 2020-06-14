@@ -1,0 +1,30 @@
+
+<div class="myDropdown">
+    <input 
+          class="myInputText"
+          [placeholder]="placeHolder" 
+          [ngStyle]="{'min-width': minWidth, 'height': heightInputText, 'width': width}"
+          [(ngModel)]="inputValue"
+          #inputsearch >
+    <ul *ngIf="isDropDownVisible"
+        class="myDropdownContent" 
+        [ngStyle]="{'max-height': maxHeightDropdown, 'min-width': minWidth, 'width': width}">
+        <ng-container *ngIf="!spinnerVisible">
+          <li *ngFor="let item of dataSourceObj | googleLikeFilter:lastSearchedValue:dataSourcePropertyToUse "
+              class="myDropdownItemContent"
+              (click)="select(item)">
+            <span class="itemDropdown itemSelectable"
+                  (click)="select(item)">{{retrieveValueFromItem(item)}}
+            </span>
+          </li>
+        </ng-container>
+        <ng-container *ngIf="!spinnerVisible">
+          <li *ngIf="(dataSourceObj | googleLikeFilter:lastSearchedValue:dataSourcePropertyToUse)?.length == 0">
+            <span class="itemDropdown itemNoSelectable">{{noResultsFound}}</span>
+          </li>   
+        </ng-container>      
+       <li *ngIf="spinnerVisible" class="loaderContainer">
+          <span class="itemDropdown loader">Spinner</span>
+        </li>             
+    </ul>
+  </div>

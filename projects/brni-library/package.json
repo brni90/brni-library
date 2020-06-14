@@ -1,13 +1,18 @@
 {
   "name": "brni-library",
+  "description": "Utility library",
+  "license": "MIT",
   "version": "0.0.4",
   "peerDependencies": {
-    "@angular/common": "^9.1.9",
-    "@angular/core": "^9.1.9"
+    "@angular/common": "9.1.9",
+    "@angular/core": "9.1.9"
   },
   "dependencies": {
-    "rxjs": "^6.5.5",
-    "tslib": "^1.10.0"
+    "@angular/common": "9.1.9",
+    "@angular/core": "9.1.9",
+    "rxjs": "6.5.5",
+    "tslib": "1.10.0",
+    "zone.js": "0.10.3"
   },
   "repository": {
     "type": "git",

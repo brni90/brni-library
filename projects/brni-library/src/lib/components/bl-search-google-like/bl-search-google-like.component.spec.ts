@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BrniLibraryComponent } from './brni-library.component';
+import { BlSearchGoogleLikeComponent } from './bl-search-google-like.component';
 
-describe('BrniLibraryComponent', () => {
-  let component: BrniLibraryComponent;
-  let fixture: ComponentFixture<BrniLibraryComponent>;
+describe('BlSearchGoogleLikeComponent', () => {
+  let component: BlSearchGoogleLikeComponent;
+  let fixture: ComponentFixture<BlSearchGoogleLikeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BrniLibraryComponent ]
+      declarations: [ BlSearchGoogleLikeComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BrniLibraryComponent);
+    fixture = TestBed.createComponent(BlSearchGoogleLikeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

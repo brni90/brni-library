@@ -4,18 +4,22 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build brni-library",
+    "buildW": "ng build brni-library --watch",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build-brni-library-styles": "cpx \"./projects/brni-library/src/lib/style/**/*\" \"./dist/brni-library/lib/style\" "
   },
   "private": false,
   "dependencies": {
     "@angular/animations": "~9.1.9",
+    "@angular/cdk": "~9.2.1",
     "@angular/common": "~9.1.9",
     "@angular/compiler": "~9.1.9",
     "@angular/core": "~9.1.9",
     "@angular/forms": "~9.1.9",
+    "@angular/material": "~9.2.1",
     "@angular/platform-browser": "~9.1.9",
     "@angular/platform-browser-dynamic": "~9.1.9",
     "@angular/router": "~9.1.9",
@@ -43,6 +47,7 @@
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "typescript": "~3.8.3"
+    "typescript": "~3.8.3",
+    "cpx": "1.5.0"
   }
 }
