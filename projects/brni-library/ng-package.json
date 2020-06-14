@@ -9,6 +9,8 @@
     "@angular/common",
     "@angular/core",
     "zone.js",
-    "@angular/animations"
+    "@angular/animations",
+    "@angular/forms",
+    "@angular/platform-browser"
   ]
 }

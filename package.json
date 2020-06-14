@@ -6,11 +6,11 @@
     "start": "ng serve",
     "build": "ng build brni-library",
     "buildW": "ng build brni-library --watch",
+    "prod": "ng build brni-library --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "build-brni-library-styles": "cpx \"./projects/brni-library/src/lib/style/**/*\" \"./dist/brni-library/lib/style\" "
-  },
+    "e2e": "ng e2e"
+    },
   "private": false,
   "dependencies": {
     "@angular/animations": "~9.1.9",
