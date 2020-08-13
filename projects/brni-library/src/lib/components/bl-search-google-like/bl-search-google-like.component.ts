@@ -25,6 +25,8 @@ export class BlSearchGoogleLikeComponent implements OnInit, OnChanges, AfterView
   @Input() maxHeightDropdown: string = '200px';
   @Input() width: string = '200px';
 
+  @Input() delayBlurEvent: number = 150;
+
   @Output() searchedValue: EventEmitter<string> = new EventEmitter<string>();
   @Output() selectedValue: EventEmitter<any> = new EventEmitter<any>();
   @Output() waitingForDataSource: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -32,7 +34,6 @@ export class BlSearchGoogleLikeComponent implements OnInit, OnChanges, AfterView
   inputValue: string = null;
   lastSearchedValue: string = null;
   isDropDownVisible: boolean = false;
-
   excludeNext: string = null;
 
   minWidth: string = '100px';
@@ -58,19 +59,6 @@ export class BlSearchGoogleLikeComponent implements OnInit, OnChanges, AfterView
     }
   }
   
-  isNotNullAndUndefined(element: any){
-      return this._utilService.isNotNullAndUndefined(element);
-  }
-  
-  isNotNullAndUndefinedDS(DS: IBLDataSource<any>){
-    if(!this.isNotNullAndUndefined(DS)){
-      return false;
-    }
-    if(!this.isNotNullAndUndefined(DS.dataSource)){
-      return false;
-    }
-    return true;
-  }
 
   ngAfterViewInit(): void {
 
@@ -84,15 +72,19 @@ export class BlSearchGoogleLikeComponent implements OnInit, OnChanges, AfterView
         }})
       )
     .subscribe((value) => {
-      console.log('input', value);
+
+      //if the datasource type is dynamic and the "value" is the last value selected ("excludeNext"),
+      //enable the waiting for the DS
       if(!this.isToExclude(value)){
         this.checkWaitingForDS(true);
-      } else {
-        this.excludeNext = null;
-      }
+      } 
+
       this.emitSearchedValue(value);
     });
 
+    /**
+     * Opens the drowpdown when focus event triggers
+     */
     fromEvent(this.inputSearchElement.nativeElement, 'focus')
     .pipe(
       takeUntil(this.toDestroy)
@@ -101,17 +93,27 @@ export class BlSearchGoogleLikeComponent implements OnInit, OnChanges, AfterView
       this.isDropDownVisible = true;
     });
 
+    /**
+     * Close the drowpdown when blur event triggers
+     */
     fromEvent(this.inputSearchElement.nativeElement, 'blur')
     .pipe(
       takeUntil(this.toDestroy),
-      delay(150)
+      delay(this.delayBlurEvent)
       )
     .subscribe((value) => {
       this.isDropDownVisible = false;
     });
 
   }
+  
 
+  /**
+   * Comparison between the @param value and the excludeNext params which contains
+   * the last value selected by the user.
+   * 
+   * If the comparison matches, return true. Otherwise, false.
+   */
   isToExclude(value: string): boolean {
     let res: boolean = false;
     if(this.excludeNext != null && this.excludeNext === value){
@@ -120,13 +122,12 @@ export class BlSearchGoogleLikeComponent implements OnInit, OnChanges, AfterView
     return res;
   }
 
-  select(item: any){
-    this.selectedValue.emit(item);
-    this.isDropDownVisible = false;
-    this.inputValue = this.retrieveValueFromItem(item);
-    this.excludeNext = this.retrieveValueFromItem(item);
-  }
-
+  
+  /**
+   * If the datasource type is dynamic, this method modify the spinner visibility and
+   * emit the value specifiyng we are still waiting or not for the new DS
+   * 
+   */
   checkWaitingForDS(waiting: boolean){
     if(this.isDynamicDataSource){
       this.waitingForDataSource.emit(waiting);  
@@ -134,20 +135,42 @@ export class BlSearchGoogleLikeComponent implements OnInit, OnChanges, AfterView
     }
   }
 
+  /**
+   * Method used when the user select an item from the dropdown
+   * 
+   * @param item: the item selected
+   */
+  select(item: any){
+    this.selectedValue.emit(item);
+    this.isDropDownVisible = false;
+    this.inputValue = this.retrieveValueFromItem(item);
+    this.excludeNext = this.retrieveValueFromItem(item);
+  }
+
+
+  /**
+   * Method used to set the visibility of the spinner
+   *
+   */
   setSpinnerVisible(visible: boolean){
     this.spinnerVisible = visible;
   }
 
+  /**
+   * Method used when we want to emit the value inserted in the search box by the user
+   */
   emitSearchedValue(valueInserted: string){
     this.lastSearchedValue = valueInserted;
     this.searchedValue.emit(valueInserted);
   }
 
-  ngOnDestroy(): void {
-    this.toDestroy.next();
-    this.toDestroy.complete();
-  }
 
+
+  /**
+   * Retrieve the value of the property with name {{dataSourcePropertyToUse}}
+   * 
+   * @param item: the object we want to discover the property name 
+   */
   retrieveValueFromItem(item: any){
     let res: string = null;
     if(this.isNotNullAndUndefined((this.dataSourcePropertyToUse))){
@@ -158,8 +181,45 @@ export class BlSearchGoogleLikeComponent implements OnInit, OnChanges, AfterView
     return res;
   }
 
+  /**
+   * Returns the value of a specific property on an object
+   *  
+   * @param item: the object
+   * @param prop: the property name
+   */
   getObjProp(item: any, prop: string){
     return this._utilService.getObjProp(item, prop);
+  }
+
+  
+  /**
+   * Method to check if a generic @param element is not null and undefined
+   * 
+   */
+  isNotNullAndUndefined(element: any){
+    return this._utilService.isNotNullAndUndefined(element);
+}
+
+/**
+ * Method to check if the datasource @param DS is not null and undefined
+ * 
+ */
+isNotNullAndUndefinedDS(DS: IBLDataSource<any>){
+  if(!this.isNotNullAndUndefined(DS)){
+    return false;
+  }
+  if(!this.isNotNullAndUndefined(DS.dataSource)){
+    return false;
+  }
+  return true;
+}
+
+  /**
+   * Method used to unsubscribe from the observable used for searching
+   */
+  ngOnDestroy(): void {
+    this.toDestroy.next();
+    this.toDestroy.complete();
   }
 
 }

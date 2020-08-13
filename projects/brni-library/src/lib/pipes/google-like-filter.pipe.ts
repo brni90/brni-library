@@ -43,10 +43,17 @@ export class GoogleLikeFilterPipe implements PipeTransform {
   _isStrContained(item: any): boolean {
     let found: boolean = false;
      if(this._utilService.isNotNullAndUndefined(item)){
-       const itemStr: string = (this._utilService.isNotNullAndUndefined(this.filterParams.dataSourcePropertyToUse)) ?
+       let itemStr: string = (this._utilService.isNotNullAndUndefined(this.filterParams.dataSourcePropertyToUse)) ?
                                      this._utilService.getObjProp(item, this.filterParams.dataSourcePropertyToUse)
                                      : item;
-       return itemStr.includes(this.filterParams.searchedValue);
+       let searchedValueStr: string = this.filterParams.searchedValue;
+       if(this._utilService.isNotNullAndUndefined(itemStr)){
+        itemStr = itemStr.toLowerCase();
+       }
+       if(this._utilService.isNotNullAndUndefined(searchedValueStr)){
+        searchedValueStr = searchedValueStr.toLowerCase();
+       }                            
+       return itemStr.includes(searchedValueStr);
      }
     return found;
   }
