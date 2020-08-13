@@ -1,8 +1,10 @@
 # Brni Library
 
-Last stable version release: none
+Last stable version release: none.
 
 Last version released: beta-version (0.0.10)
+
+
 
 ## Introduction
 This library mainly built with **Angular** 9.1.9, **Rxjs** 6.5.5 and **CSS Spinner by LukeHaas** (https://projects.lukehaas.me/css-loaders/).
