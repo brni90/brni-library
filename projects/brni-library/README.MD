@@ -1,6 +1,6 @@
 # Brni Library
 
-Last stable version release: none.
+Last stable version released: none.
 
 Last version released: beta-version (0.0.10)
 
