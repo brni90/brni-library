@@ -2,7 +2,7 @@
   "name": "brni-library",
   "description": "Utility library",
   "license": "MIT",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "peerDependencies": {
     "@angular/common": "9.1.9",
     "@angular/core": "9.1.9",
